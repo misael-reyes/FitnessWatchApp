@@ -1,10 +1,17 @@
 package com.example.fitnesswatchapp.ui.clock
 
 import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.fitnesswatchapp.MainActivity
 import com.example.fitnesswatchapp.R
@@ -25,6 +32,12 @@ class ClockActivity : AppCompatActivity() {
 
     private var pausado = false
 
+    // properties for our notificaton channel
+
+    private val channelId = "channelId"
+    private val channelName = "channelName"
+    private val notificationId  = 1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +53,35 @@ class ClockActivity : AppCompatActivity() {
         viewModelFactory = ClockViewModelFactory(rutina)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ClockViewModel::class.java)
 
+        createNotificationChannel()
         initView()
         initObserver()
         initListener()
+    }
+
+    /**
+     * función para crear nuestro canal de notificación
+     */
+    private fun createNotificationChannel() {
+        /**
+         * a partir de android o (8) se implementaron los canales para las
+         * notificaciones
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // importancia de la notificación
+            val importance: Int = NotificationManager.IMPORTANCE_HIGH
+
+            // creamos el canal
+            val channel = NotificationChannel(channelId, channelName, importance).apply {
+                lightColor = Color.RED
+                enableLights(true)
+            }
+
+            // necesitamos un notification manager para construir el canal
+            // getSystemService regresa un any, por eso tenemos que haer el casteo a notification manager
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
     }
 
     /**
@@ -101,12 +140,15 @@ class ClockActivity : AppCompatActivity() {
                     tvMinutos.setTextColor(Color.parseColor("#E90000"))
                     tvSegundos.setTextColor(Color.parseColor("#E90000"))
                 }
+                notificar("A descansar")
             }
         }
 
         viewModel.rutinaTerminada.observe(this) { rutinaTerminada ->
-            if (rutinaTerminada)
+            if (rutinaTerminada) {
+                notificar("haz terminado tu rutina :)")
                 startActivity(Intent(this, MainActivity::class.java))
+            }
         }
 
         viewModel.cronometroPausado.observe(this) {
@@ -128,6 +170,20 @@ class ClockActivity : AppCompatActivity() {
             else
                 viewModel.resumeTimer()
         }
+    }
+
+    private fun notificar(texto: String) {
+        // configuración de la notificación
+        var notification = NotificationCompat.Builder(this, channelId).also {
+            it.setContentTitle("FitnessWatchApp")
+            it.setContentText(texto)
+            it.setSmallIcon(R.drawable.alarma)
+            it.setPriority(NotificationCompat.PRIORITY_HIGH)
+        }.build()
+
+        //
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.notify(notificationId, notification)
     }
 
     /**
