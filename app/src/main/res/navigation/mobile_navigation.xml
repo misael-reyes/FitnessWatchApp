@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_schedule">
+
+    <fragment
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.fitnesswatchapp.ui.scheduleSetting.ScheduleSettingFragment"
+        android:label="@string/schedule_menu"
+        tools:layout="@layout/schedule_setting_fragment" />
+    <fragment
+        android:id="@+id/navigation_list"
+        android:name="com.example.fitnesswatchapp.ui.tasksList.TasksListFragment"
+        android:label="@string/list_menu"
+        tools:layout="@layout/tasks_list_fragment" />
+</navigation>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.scheduleSetting.ScheduleSettingFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_guardar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/icono_guardar_description"
+            android:background="@drawable/icono_guardar"
+            android:backgroundTint="@color/black"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title_sesiones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/titulo_sesiones"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="40dp">
+
+        <ImageButton
+            android:id="@+id/btn_menos_sesiones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp1"
+            android:src="@drawable/icon_remove"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <TextView
+            android:id="@+id/et_sesiones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="2"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:text="@string/numero1"
+            android:textSize="30sp"
+
+            tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            android:autofillHints="número de sesiones" />
+
+        <ImageButton
+            android:id="@+id/btn_mas_sesiones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp2"
+            android:src="@drawable/icono_mas"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/title_trabajo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/titulo_trabajo"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="40dp">
+
+        <ImageButton
+            android:id="@+id/btn_menos_trabajo_minutos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/ambar"
+            android:contentDescription="@string/descrp3"
+            android:src="@drawable/icon_remove"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/et_min_trabajo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="2"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:text="@string/numero"
+            android:textSize="30sp"
+            tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            android:autofillHints="minutos por sesión" />
+
+        <ImageButton
+            android:id="@+id/btn_mas_trabajo_minutos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp4"
+            android:src="@drawable/icono_mas"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/dosp"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/btn_menos_trabajo_segundos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp5"
+            android:src="@drawable/icon_remove"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/et_seg_trabajo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="2"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:text="@string/numero"
+            android:textSize="30sp"
+            tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            android:autofillHints="segundos por sesión" />
+
+        <ImageButton
+            android:id="@+id/btn_mas_trabajo_segundos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp6"
+            android:src="@drawable/icono_mas"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/title_descanso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/titulo_descanso"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="25dp">
+
+        <ImageButton
+            android:id="@+id/btn_menos_descanso_minutos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp7"
+            android:src="@drawable/icon_remove"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/et_min_descanso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="2"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:text="@string/numero"
+            android:textSize="30sp"
+            tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            android:autofillHints="minutos para descanso" />
+
+        <ImageButton
+            android:id="@+id/btn_mas_descanso_minutos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp8"
+            android:src="@drawable/icono_mas"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/dosp"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/btn_menos_descanso_segundos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp9"
+            android:src="@drawable/icon_remove"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/et_seg_descanso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="2"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:text="@string/numero"
+            android:textSize="30sp"
+            tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            android:autofillHints="segundos para descanso" />
+
+        <ImageButton
+            android:id="@+id/btn_mas_descanso_segundos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descrp10"
+            android:src="@drawable/icono_mas"
+            android:backgroundTint="@color/ambar"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_iniciar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/btn_inicio_rapido"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cornerRadius= "20dp"
+            tools:ignore="MissingConstraints">
+        </Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

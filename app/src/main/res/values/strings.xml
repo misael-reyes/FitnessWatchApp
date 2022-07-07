@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">FitnessWatchApp</string>
+    <string name="schedule_menu">Programación</string>
+    <string name="list_menu">Guardados</string>
+    <string name="icono_guardar_description">descripcion</string>
+    <string name="descrp1">icono mas</string>
+    <string name="descrp2">icono mas</string>
+    <string name="descrp3">descripcion</string>
+    <string name="descrp4">descripcion</string>
+    <string name="descrp5">descripcion</string>
+    <string name="descrp6">descripcion</string>
+    <string name="descrp7">descripcion</string>
+    <string name="descrp8">descripcion</string>
+    <string name="descrp9">descripcion</string>
+    <string name="descrp10">descripcion</string>
+    <string name="titulo_sesiones">Número de sesiones:</string>
+    <string name="titulo_trabajo">Minutos por sesión:</string>
+    <string name="titulo_descanso">Minutos para descanso:</string>
+    <string name="btn_inicio_rapido">Iniciar Rutina</string>
+    <string name="dosp">:</string>
+    <string name="numero">0</string>
+    <string name="numero1">1</string>
+    <string name="sesion">Sesión:</string>
+    <string name="sesion_actual">0/0</string>
+    <string name="estado_sesion">Trabajando</string>
+    <string name="tiempo_prueba">88</string>
+    <string name="et_minutos">minutos</string>
+    <string name="et_segundos">segundos</string>
+</resources>
