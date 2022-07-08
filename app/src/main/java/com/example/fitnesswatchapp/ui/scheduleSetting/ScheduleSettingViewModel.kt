@@ -26,13 +26,13 @@ class ScheduleSettingViewModel: ViewModel() {
             rutina.sesiones--
             _rutinaModel.value = rutina
         } else {
-            rutina.sesiones = 30
+            rutina.sesiones = 60
             _rutinaModel.value = rutina
         }
     }
 
     fun onMasSesiones() {
-        if (rutina.sesiones < 30) {
+        if (rutina.sesiones < 60) {
             rutina.sesiones ++
             _rutinaModel.value = rutina
         } else {

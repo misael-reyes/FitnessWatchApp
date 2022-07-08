@@ -7,9 +7,15 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.SoundPool
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.view.WindowManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
@@ -18,9 +24,16 @@ import com.example.fitnesswatchapp.R
 import com.example.fitnesswatchapp.databinding.ActivityClockBinding
 import com.example.fitnesswatchapp.models.RutinaModel
 
+@Suppress("DEPRECATION")
 class ClockActivity : AppCompatActivity() {
 
     //properties
+
+    private lateinit var soundPool: SoundPool
+    private var sound_play = 0
+
+    private var vibration: Vibrator? = null
+
 
     private lateinit var rutina: RutinaModel
 
@@ -44,6 +57,9 @@ class ClockActivity : AppCompatActivity() {
         binding = ActivityClockBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // matenemos activa la pantalla
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
         val bundle = intent.extras
         if (bundle != null)
             recuperarDatos(bundle)
@@ -54,9 +70,31 @@ class ClockActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(ClockViewModel::class.java)
 
         createNotificationChannel()
+        createSound()
+        createVibrator()
         initView()
         initObserver()
         initListener()
+    }
+
+    /**
+     * función para crear el sonido de la alarma
+     */
+    private fun createSound() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val audioAttributes = AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .build()
+
+            soundPool = SoundPool.Builder()
+                .setMaxStreams(1)
+                .setAudioAttributes(audioAttributes)
+                .build()
+        } else {
+            soundPool = SoundPool(1, AudioManager.STREAM_ALARM, 1)
+        }
+        sound_play = soundPool.load(this, R.raw.alarma, 1)
     }
 
     /**
@@ -75,13 +113,28 @@ class ClockActivity : AppCompatActivity() {
             val channel = NotificationChannel(channelId, channelName, importance).apply {
                 lightColor = Color.RED
                 enableLights(true)
+                enableVibration(true)
             }
 
             // necesitamos un notification manager para construir el canal
             // getSystemService regresa un any, por eso tenemos que haer el casteo a notification manager
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
+    }
+
+    /**
+     * función para configruar el vibrador del telefono
+     */
+    private fun createVibrator() {
+        vibration = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    }
+
+    private fun vibrate() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibration!!.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else
+            vibration!!.vibrate(1000)
     }
 
     /**
@@ -131,16 +184,15 @@ class ClockActivity : AppCompatActivity() {
             if (trabajando) {
                 with(binding) {
                     estadoSesion.text = "Trabajando"
-                    tvMinutos.setTextColor(Color.parseColor("#FF000000"))
-                    tvSegundos.setTextColor(Color.parseColor("#FF000000"))
+                    viewContainer.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 }
             } else {
-                binding.estadoSesion.text = "Descansando"
                 with(binding) {
-                    tvMinutos.setTextColor(Color.parseColor("#E90000"))
-                    tvSegundos.setTextColor(Color.parseColor("#E90000"))
+                    estadoSesion.text = "Descansando"
+                    viewContainer.setBackgroundColor(Color.parseColor("#E1DF2C"))
                 }
-                notificar("A descansar")
+                alarma()
+                vibrate()
             }
         }
 
@@ -160,6 +212,11 @@ class ClockActivity : AppCompatActivity() {
                 pausado = false
             }
         }
+    }
+
+    private fun alarma() {
+        // sonido de alarma
+        soundPool.play(sound_play, 1F,1F,1,0, 1F)
     }
 
     private fun initListener() {
