@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,7 +24,8 @@
             android:background="@drawable/btn_salir"
             android:contentDescription="@string/descrp2"
             android:src="@drawable/icono_close"
-            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
+            app:tint="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -129,7 +131,8 @@
             android:contentDescription="@string/descrp2"
             android:src="@drawable/icono_pausa"
             android:background="@drawable/btn_start"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="TouchTargetSizeCheck"
+            app:tint="@color/black" />
     </LinearLayout>
 
 

@@ -1,22 +1,31 @@
 package com.example.fitnesswatchapp.ui.scheduleSetting
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.fitnesswatchapp.models.RutinaModel
+import androidx.lifecycle.viewModelScope
+import com.example.fitnesswatchapp.domain.InsertRutinaUseCase
+import com.example.fitnesswatchapp.domain.model.Rutina
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScheduleSettingViewModel: ViewModel() {
+@HiltViewModel
+class ScheduleSettingViewModel @Inject constructor(
+    private val insertRutinaUseCase: InsertRutinaUseCase
+) : ViewModel() {
     /**
      * el live data permite a nuestro activity o fragment suscribirnos
      * a un modelo de datos que se llama automaticamente cuando se realiza un cambio
      * en dicho modeo
      */
 
-    var rutina = RutinaModel("", 1, 0,0,0,0)
+    var rutina = Rutina(0,"", 1, 0,0,0,0)
     var vacio = true
 
-    private val _rutinaModel = MutableLiveData<RutinaModel>()
-    val rutinaModel: LiveData<RutinaModel> get() = _rutinaModel
+    private val _rutinaModel = MutableLiveData<Rutina>()
+    val rutinaModel: LiveData<Rutina> get() = _rutinaModel
 
 
     // contador para el número de sesiones
@@ -139,7 +148,22 @@ class ScheduleSettingViewModel: ViewModel() {
         return vacio
     }
 
-    private fun rutinaVacia(): RutinaModel {
-        return RutinaModel("", 1, 0,0,0,0)
+    private fun rutinaVacia(): Rutina {
+        return Rutina(0,"", 1, 0,0,0,0)
+    }
+
+    /**
+     * función para guardar la rutina en la base de datos
+     */
+    fun guardarRutina(nombre: String) {
+        rutina.nombre = nombre
+        viewModelScope.launch { insertRutinaUseCase(rutina) }
+    }
+
+    /**
+     * función para validar el nombre de la rutina a guardar
+     */
+    fun nombreValido(nombre: String): Boolean {
+        return nombre.isNotEmpty()
     }
 }

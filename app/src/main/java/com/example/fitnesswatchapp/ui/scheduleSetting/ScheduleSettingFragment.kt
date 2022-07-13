@@ -1,16 +1,24 @@
 package com.example.fitnesswatchapp.ui.scheduleSetting
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import com.example.fitnesswatchapp.R
+import com.example.fitnesswatchapp.databinding.DialogGuardarBinding
 import com.example.fitnesswatchapp.databinding.ScheduleSettingFragmentBinding
 import com.example.fitnesswatchapp.ui.clock.ClockActivity
+import dagger.hilt.android.AndroidEntryPoint
+import android.view.View as View
 
+@AndroidEntryPoint
 class ScheduleSettingFragment : Fragment() {
 
     // Properties
@@ -20,6 +28,8 @@ class ScheduleSettingFragment : Fragment() {
     var s_trabajo = 0
     var m_descanso = 0
     var s_descanso = 0
+
+    private lateinit var dialog: AlertDialog
 
     private var _binding: ScheduleSettingFragmentBinding? = null
     private val binding get() = _binding!!
@@ -80,6 +90,7 @@ class ScheduleSettingFragment : Fragment() {
             btnMasDescansoMinutos.setOnClickListener { viewModel.onMasDescansoMinutos() }
             btnMenosDescansoSegundos.setOnClickListener { viewModel.onMenosDescansoSegundos() }
             btnMasDescansoSegundos.setOnClickListener { viewModel.onMasDescansoSegundos() }
+            btnGuardar.setOnClickListener { validarDatos() }
         }
 
     }
@@ -96,7 +107,62 @@ class ScheduleSettingFragment : Fragment() {
             intent.putExtra("s_descanso", s_descanso)
             startActivity(intent)
         } else {
-            Toast.makeText(context, "Asegurese de establecer tiempo para el trabajo y descanso", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                "Asegurese de establecer tiempo para el trabajo y descanso",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+
+    private fun guardarRutina(nombre: String) {
+        if (viewModel.nombreValido(nombre)) {
+            // nombre correcto y rutina con tiempo valido
+            viewModel.guardarRutina(nombre)
+            dialog.hide()
+            onIniciar()
+        } else {
+            // nombre invalido o rutina con tiempo 0
+            Toast.makeText(context, "Inserte un nombre para la rutina", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * función para construir un alert dialogo en el que el usario insertará
+     * el nombre de la rutina a guardar
+     */
+    private fun construirDialog() {
+        // asignamos valores
+
+        val builder = AlertDialog.Builder(context)
+        val view = layoutInflater.inflate(R.layout.dialog_guardar, null)
+
+        // pasando la vista al builder
+        builder.setView(view)
+
+        // creando el dialog
+        dialog = builder.create()
+        dialog.show()
+
+        // binding para la vista del dialog
+        val bindingDialog = DialogGuardarBinding.bind(view)
+
+        // listener para los botones del dialog
+
+        bindingDialog.btnSave.setOnClickListener { guardarRutina(bindingDialog.etNombre.text.toString()) }
+        bindingDialog.btnCancel.setOnClickListener { dialog.hide() }
+    }
+
+    private fun validarDatos() {
+        if (viewModel.validar()) {
+            Toast.makeText(
+                context,
+                "Asegurese de establecer tiempo para el trabajo y descanso antes de guardar",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            construirDialog()
         }
     }
 }

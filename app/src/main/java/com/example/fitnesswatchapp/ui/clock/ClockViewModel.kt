@@ -1,14 +1,11 @@
 package com.example.fitnesswatchapp.ui.clock
 
 import android.os.CountDownTimer
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.fitnesswatchapp.models.RutinaModel
+import androidx.lifecycle.*
+import com.example.fitnesswatchapp.domain.model.Rutina
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-class ClockViewModel(rut: RutinaModel) : ViewModel() {
+class ClockViewModel(rut: Rutina) : ViewModel() {
 
     // rutina a ejecutar
     var rutina = rut
@@ -134,7 +131,7 @@ class ClockViewModel(rut: RutinaModel) : ViewModel() {
  * trabajaremos
  * esta clase solo nos permite instanciar un objeto de la clase ClockViewModel
  */
-class ClockViewModelFactory(private val rutina: RutinaModel) : ViewModelProvider.Factory {
+class ClockViewModelFactory(private val rutina: Rutina) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ClockViewModel(rutina) as T

@@ -12,4 +12,6 @@
     <color name="red">#E90000</color>
     <color name="ambar_fuerte">#957002</color>
     <color name="red_fuerte">#750202</color>
+    <color name="ambar_bajo">#E8C14D</color>
+    <color name="transparente">#00000000</color>
 </resources>

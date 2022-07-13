@@ -1,7 +1,6 @@
 package com.example.fitnesswatchapp.ui.clock
 
 import android.annotation.SuppressLint
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -19,10 +18,11 @@ import android.view.WindowManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.fitnesswatchapp.MainActivity
+import com.example.fitnesswatchapp.ui.MainActivity
 import com.example.fitnesswatchapp.R
 import com.example.fitnesswatchapp.databinding.ActivityClockBinding
-import com.example.fitnesswatchapp.models.RutinaModel
+import com.example.fitnesswatchapp.domain.model.Rutina
+import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
 class ClockActivity : AppCompatActivity() {
@@ -35,7 +35,7 @@ class ClockActivity : AppCompatActivity() {
     private var vibration: Vibrator? = null
 
 
-    private lateinit var rutina: RutinaModel
+    private lateinit var rutina: Rutina
 
     private lateinit var viewModel: ClockViewModel
     private lateinit var viewModelFactory: ClockViewModelFactory
@@ -142,7 +142,8 @@ class ClockActivity : AppCompatActivity() {
      * en un objeto rutina
      */
     private fun recuperarDatos(bundle: Bundle) {
-        rutina = RutinaModel("",
+        rutina = Rutina(0,
+            "",
             bundle.getInt("sesiones"),
             bundle.getInt("m_trabajo"),
             bundle.getInt("s_trabajo"),
@@ -186,6 +187,7 @@ class ClockActivity : AppCompatActivity() {
                     estadoSesion.text = "Trabajando"
                     viewContainer.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 }
+                alarma()
             } else {
                 with(binding) {
                     estadoSesion.text = "Descansando"
@@ -199,7 +201,7 @@ class ClockActivity : AppCompatActivity() {
         viewModel.rutinaTerminada.observe(this) { rutinaTerminada ->
             if (rutinaTerminada) {
                 notificar("haz terminado tu rutina :)")
-                startActivity(Intent(this, MainActivity::class.java))
+                closeActivity()
             }
         }
 

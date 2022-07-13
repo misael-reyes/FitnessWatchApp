@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FitnessWatchApp</string>
+    <string name="app_name">Fitness Watch</string>
     <string name="schedule_menu">Programación</string>
     <string name="list_menu">Guardados</string>
     <string name="icono_guardar_description">descripcion</string>
@@ -26,4 +26,12 @@
     <string name="tiempo_prueba">88</string>
     <string name="et_minutos">minutos</string>
     <string name="et_segundos">segundos</string>
+    <string name="et_nombre">Nombre de la rutina</string>
+    <string name="title_guardar">Inserte un nombre para guardar la rutina</string>
+    <string name="btn_guardar">Guardar e iniciar</string>
+    <string name="cv_nombre">Nombre rutina</string>
+    <string name="cv_trabajo">Tiempo de trabajo:</string>
+    <string name="cv_descanso">Tiempo de descanso:</string>
+    <string name="cv_sesiones">Sesiones:</string>
+    <string name="btn_cancelar">Cancelar</string>
 </resources>

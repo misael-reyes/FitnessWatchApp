@@ -21,9 +21,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:contentDescription="@string/icono_guardar_description"
-            android:background="@drawable/icono_guardar"
-            android:backgroundTint="@color/black"
-            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+            android:background="@drawable/btn_save_delete"
+            android:src="@drawable/icono_guardar"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
+            app:tint="@color/black" />
     </LinearLayout>
 
     <LinearLayout
